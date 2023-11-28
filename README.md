@@ -2,11 +2,11 @@
 
 11/24/23 WIP: 
 - Currently uploaded a parsing class to read the CSV file. 
-- This file can read the CSV file's 11 tokens however, the delimiter 
+- This file can open the CSV file with 11 tokens. However, there is a delimiter issue, so it only reads the first 1 or 2 tokens correctly. 
 - This file was originally compiled on Visual Studio.
 
 Description:
-- This program will organize Amazon products using 2 sorting algorithms:
+- This program will organize Amazon products and implement 2 sorting algorithms:
 Shell sort and Quicksort with the option to sort all items found in a single category
 by price, or by star rating.
  
