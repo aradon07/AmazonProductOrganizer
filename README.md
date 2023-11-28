@@ -9,3 +9,5 @@ the last month.
 
 We hope this program will be beneficial to the average customer who makes
 purchases on Amazon.com.
+
+The Dataset is a very large csv file over 367mb, so you will be required to get this file at the following link:  https://www.kaggle.com/datasets/asaniczka/amazon-products-dataset-2023-1-4m-products
