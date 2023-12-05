@@ -1,19 +1,82 @@
 import csv
 
 def Shellsorttitle(vec):
-    print("y")
+    val = len(vec) // 2
+
+    while val > 0:
+        j = val
+        # Check the array in from left to right
+        # Till the last possible index of j
+        while j < len(vec):
+            i = j - val  # This will keep help in maintain gap value
+
+            while i >= 0:
+                # If value on right side is already greater than left side value
+                # We don't do swap else we swap
+                if vec[i + val].title > vec[i].title:
+
+                    break
+                else:
+                    vec[i + val], vec[i] = vec[i], vec[i + val]
+
+                i = i - val  # To check left side also
+                # If the element present is greater than current element
+            j += 1
+        val = val // 2
 
 def Quicksorttitle(vec):
     print("z")
 
 def Shellsortrating(vec):
-    print("y")
+    val = len(vec) // 2
+
+    while val > 0:
+        j = val
+        # Check the array in from left to right
+        # Till the last possible index of j
+        while j < len(vec):
+            i = j - val  # This will keep help in maintain gap value
+
+            while i >= 0:
+                # If value on right side is already greater than left side value
+                # We don't do swap else we swap
+                if vec[i + val].rating > vec[i].rating:
+
+                    break
+                else:
+                    vec[i + val], vec[i] = vec[i], vec[i + val]
+
+                i = i - val  # To check left side also
+                # If the element present is greater than current element
+            j += 1
+        val = val // 2
 
 def Quicksortrating(vec):
     print("z")
 
 def Shellsortprice(vec):
-    print("y")
+    val = len(vec) // 2
+
+    while val > 0:
+        j = val
+        # Check the array in from left to right
+        # Till the last possible index of j
+        while j < len(vec):
+            i = j - val  # This will keep help in maintain gap value
+
+            while i >= 0:
+                # If value on right side is already greater than left side value
+                # We don't do swap else we swap
+                if vec[i + val].price > vec[i].price:
+
+                    break
+                else:
+                    vec[i + val], vec[i] = vec[i], vec[i + val]
+
+                i = i - val  # To check left side also
+                # If the element present is greater than current element
+            j += 1
+        val = val // 2
 
 def Quicksortprice(vec):
     print("z")
