@@ -1,4 +1,6 @@
 # AmazonProductOrganizer
+12/5/23 The finalized AmazonProductOrganizer had to redeveloped for Python coding. Please open the file named "main.py" 
+So this is the program to use to open AmazonProductOrganizer with CSV file, Quicksort and Shellsort.
 
 11/24/23 WIP: 
 - Currently uploaded a parsing class to read the CSV file. 
