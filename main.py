@@ -24,8 +24,60 @@ def Shellsorttitle(vec):
             j += 1
         val = val // 2
 
-def Quicksorttitle(vec):
-    print("z")
+
+
+def PartitionTitle(vec, startIndex, endIndex):
+
+    x = vec[endIndex]
+
+    y = startIndex - 1
+
+    for i in range(startIndex, endIndex):
+        if vec[i].title <= x.title:
+            y += 1
+            (vec[i], vec[j]) = (vec[i], vec[y])
+
+    (vec[y+1], vec[endIndex]) = (vec[endIndex], vec[y+1])
+    return y+1
+
+def PartitionRating(vec, startIndex, endIndex):
+
+    x = vec[endIndex]
+
+    y = startIndex - 1
+
+    for i in range(startIndex, endIndex):
+        if vec[i].rating <= x.rating:
+            y += 1
+            (vec[i], vec[j]) = (vec[i], vec[y])
+
+    (vec[y+1], vec[endIndex]) = (vec[endIndex], vec[y+1])
+    return y+1
+
+def PartitionPrice(vec, startIndex, endIndex):
+
+    x = vec[endIndex]
+
+    y = startIndex - 1
+
+    for i in range(startIndex, endIndex):
+        if vec[i].price <= x.price:
+            y += 1
+            (vec[i], vec[j]) = (vec[i], vec[y])
+
+    (vec[y+1], vec[endIndex]) = (vec[endIndex], vec[y+1])
+    return y+1
+
+def Quicksorttitle(vec, startIndex, endIndex):
+
+    if startIndex < endIndex:
+        x = PartitionTitle(vec, startIndex, endIndex)
+
+        Quicksorttitle(vec, startIndex, x-1)
+
+        Quicksorttitle(vec, x+1, endIndex)
+
+
 
 def Shellsortrating(vec):
     val = len(vec) // 2
@@ -51,8 +103,14 @@ def Shellsortrating(vec):
             j += 1
         val = val // 2
 
-def Quicksortrating(vec):
-    print("z")
+def Quicksortrating(vec, startIndex, endIndex):
+    if startIndex < endIndex:
+        x = PartitionRating(vec, startIndex, endIndex)
+
+        Quicksortrating(vec, startIndex, x-1)
+
+        Quicksortrating(vec, x+1, endIndex)
+
 
 def Shellsortprice(vec):
     val = len(vec) // 2
@@ -78,8 +136,13 @@ def Shellsortprice(vec):
             j += 1
         val = val // 2
 
-def Quicksortprice(vec):
-    print("z")
+def Quicksortprice(vec, startIndex, endIndex):
+    if startIndex < endIndex:
+        x = PartitionPrice(vec, startIndex, endIndex)
+
+        Quicksortrating(vec, startIndex, x-1)
+
+        Quicksortrating(vec, x+1, endIndex)
 
 
 class Product:
@@ -112,12 +175,7 @@ if __name__ == "__main__":
                         print(i)
                         print()
                         x = 0
-        #cat = input("Enter the desired category to search")
 
-        #char_list = [chr(i) for i in range(49, 271)]
-
-        #while cat not in char_list:
-         #   cat = input("Please enter a valid category")
         valid_input = False
         while not valid_input:
             cat = input("Enter the desired category to search: ")
@@ -183,15 +241,15 @@ if __name__ == "__main__":
 
         if choice == '1':
 
-            Quicksorttitle(products0)
+            Quicksorttitle(products0, 0, len(products0)-1)
             Shellsorttitle(products1)
 
         elif choice == '2':
-            Quicksortrating(products0)
+            Quicksortrating(products0, 0, len(products0)-1)
             Shellsortrating(products1)
 
         elif choice == '3':
-            Quicksortprice(products0)
+            Quicksortprice(products0, 0, len(products0)-1)
             Shellsortprice(products1)
 
         elif choice == '4':
