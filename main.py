@@ -108,7 +108,7 @@ def Shellsortprice(vec):
             j = i
             while j >= val and vec[j - val].price > temp.price:
                 if vec[j - val].price == temp.price and vec[j - val].title > temp.title:
-                    break  # Maintain stability by checking title
+                    break
                 vec[j] = vec[j - val]
                 j -= val
             vec[j] = temp
@@ -248,6 +248,8 @@ if __name__ == "__main__":
             print(f"Shellsort time: {ssort_time}")
             Print10(products1)
 
+            print(f"In this case, Quicksort takes {qsort_time/ssort_time} times the search time of Shellsort.")
+
         elif choice == '2':
             qstart = timer()
             Quicksortrating(products0, 0, len(products0)-1)
@@ -264,6 +266,7 @@ if __name__ == "__main__":
 
             print(f"Shellsort time: {ssort_time}")
             Print10(products1)
+            print(f"In this case, Quicksort takes {qsort_time / ssort_time} times the search time of Shellsort.")
 
         elif choice == '3':
             qstart = timer()
@@ -281,6 +284,7 @@ if __name__ == "__main__":
 
             print(f"Shellsort time: {ssort_time}")
             Print10(products1)
+            print(f"In this case, Quicksort takes {qsort_time / ssort_time} the search time of Shellsort.")
 
         elif choice == '4':
 
