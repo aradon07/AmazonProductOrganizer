@@ -1,5 +1,5 @@
 import csv
-import timeit
+from timeit import default_timer as timer
 
 def Shellsorttitle(vec):
     val = len(vec) // 2
@@ -42,19 +42,16 @@ def PartitionTitle(vec, startIndex, endIndex):
     return y+1
 
 def PartitionRating(vec, startIndex, endIndex):
-
     x = vec[endIndex]
-
     y = startIndex - 1
 
     for i in range(startIndex, endIndex):
-        if vec[i].stars <= x.stars:
+        if vec[i].stars < x.stars or (vec[i].stars == x.stars and vec[i].title < x.title):
             y += 1
-            (vec[y], vec[i]) = (vec[i], vec[y])
+            vec[y], vec[i] = vec[i], vec[y]
 
-    (vec[y+1], vec[endIndex]) = (vec[endIndex], vec[y+1])
-    return y+1
-
+    vec[y + 1], vec[endIndex] = vec[endIndex], vec[y + 1]
+    return y + 1
 def PartitionPrice(vec, startIndex, endIndex):
 
     x = vec[endIndex]
@@ -81,72 +78,55 @@ def Quicksorttitle(vec, startIndex, endIndex):
 
 
 def Shellsortrating(vec):
+
     val = len(vec) // 2
 
     while val > 0:
-        j = val
-        # Check the array in from left to right
-        # Till the last possible index of j
-        while j < len(vec):
-            i = j - val  # This will keep help in maintain gap value
-
-            while i >= 0:
-                # If value on right side is already greater than left side value
-                # We don't do swap else we swap
-                if vec[i + val].stars > vec[i].stars:
-
-                    break
-                else:
-                    vec[i + val], vec[i] = vec[i], vec[i + val]
-
-                i = i - val  # To check left side also
-                # If the element present is greater than current element
-            j += 1
-        val = val // 2
+        for i in range(val, len(vec)):
+            temp = vec[i]
+            j = i
+            while j >= val and (vec[j - val].stars > temp.stars or (vec[j - val].stars == temp.stars and vec[j - val].title > temp.title)):
+                vec[j] = vec[j - val]
+                j -= val
+            vec[j] = temp
+        val //= 2
 
 def Quicksortrating(vec, startIndex, endIndex):
     if startIndex < endIndex:
         x = PartitionRating(vec, startIndex, endIndex)
-
-        Quicksortrating(vec, startIndex, x-1)
-
-        Quicksortrating(vec, x+1, endIndex)
+        Quicksortrating(vec, startIndex, x - 1)
+        Quicksortrating(vec, x + 1, endIndex)
 
 
 def Shellsortprice(vec):
+
     val = len(vec) // 2
 
     while val > 0:
-        j = val
-        # Check the array in from left to right
-        # Till the last possible index of j
-        while j < len(vec):
-            i = j - val  # This will keep help in maintain gap value
+        for i in range(val, len(vec)):
+            temp = vec[i]
+            j = i
+            while j >= val and vec[j - val].price > temp.price:
+                if vec[j - val].price == temp.price and vec[j - val].title > temp.title:
+                    break  # Maintain stability by checking title
+                vec[j] = vec[j - val]
+                j -= val
+            vec[j] = temp
+        val //= 2
 
-            while i >= 0:
-                # If value on right side is already greater than left side value
-                # We don't do swap else we swap
-                if vec[i + val].price > vec[i].price:
-
-                    break
-                else:
-                    vec[i + val], vec[i] = vec[i], vec[i + val]
-
-                i = i - val  # To check left side also
-                # If the element present is greater than current element
-            j += 1
-        val = val // 2
 
 def Quicksortprice(vec, startIndex, endIndex):
+
     if startIndex < endIndex:
         x = PartitionPrice(vec, startIndex, endIndex)
 
-        Quicksortrating(vec, startIndex, x-1)
+        Quicksortprice(vec, startIndex, x-1)
 
-        Quicksortrating(vec, x+1, endIndex)
+        Quicksortprice(vec, x+1, endIndex)
 
 def Print10(vec):
     print("The top 10 results of this search are:")
+    print()
     for i in range(10):
         print(vec[len(vec)-i-1].title)
         print()
@@ -224,10 +204,10 @@ if __name__ == "__main__":
                         title = j
                         # print("x")
                     if x == 4:
-                        stars = j
+                        stars = float(j)
                         # print(j)
                     if x == 6:
-                        price = j
+                        price = float(j)
                         # print(j)
                     if x == 8:
                         category = j
@@ -252,51 +232,51 @@ if __name__ == "__main__":
         choice = input("Enter your choice (1-4): ")
 
         if choice == '1':
-            qstart = timeit.timeit()
+            qstart = timer()
             Quicksorttitle(products0, 0, len(products0)-1)
-            qend = timeit.timeit()
+            qend = timer()
             qsort_time = qend-qstart
 
             print(f"Quicksort time: {qsort_time}")
             Print10(products0)
 
-            sstart = timeit.timeit()
+            sstart = timer()
             Shellsorttitle(products1)
-            send = timeit.timeit()
+            send = timer()
             ssort_time = send-sstart
 
             print(f"Shellsort time: {ssort_time}")
             Print10(products1)
 
         elif choice == '2':
-            qstart = timeit.timeit()
+            qstart = timer()
             Quicksortrating(products0, 0, len(products0)-1)
-            qend = timeit.timeit()
+            qend = timer()
             qsort_time = qend-qstart
 
             print(f"Quicksort time: {qsort_time}")
             Print10(products0)
 
-            sstart = timeit.timeit()
+            sstart = timer()
             Shellsortrating(products1)
-            send = timeit.timeit()
+            send = timer()
             ssort_time = send-sstart
 
             print(f"Shellsort time: {ssort_time}")
             Print10(products1)
 
         elif choice == '3':
-            qstart = timeit.timeit()
+            qstart = timer()
             Quicksortprice(products0, 0, len(products0)-1)
-            qend = timeit.timeit()
+            qend = timer()
             qsort_time = qend-qstart
 
             print(f"Quicksort time: {qsort_time}")
             Print10(products0)
 
-            sstart = timeit.timeit()
+            sstart = timer()
             Shellsortprice(products1)
-            send = timeit.timeit()
+            send = timer()
             ssort_time = send-sstart
 
             print(f"Shellsort time: {ssort_time}")
@@ -308,10 +288,4 @@ if __name__ == "__main__":
             break
         else:
             print("Invalid choice. Please enter a valid option (1-4).")
-
-
-
-
-
-
 
