@@ -1,4 +1,5 @@
 import csv
+import timeit
 
 def Shellsorttitle(vec):
     val = len(vec) // 2
@@ -35,7 +36,7 @@ def PartitionTitle(vec, startIndex, endIndex):
     for i in range(startIndex, endIndex):
         if vec[i].title <= x.title:
             y += 1
-            (vec[i], vec[j]) = (vec[i], vec[y])
+            (vec[y], vec[i]) = (vec[i], vec[y])
 
     (vec[y+1], vec[endIndex]) = (vec[endIndex], vec[y+1])
     return y+1
@@ -47,9 +48,9 @@ def PartitionRating(vec, startIndex, endIndex):
     y = startIndex - 1
 
     for i in range(startIndex, endIndex):
-        if vec[i].rating <= x.rating:
+        if vec[i].stars <= x.stars:
             y += 1
-            (vec[i], vec[j]) = (vec[i], vec[y])
+            (vec[y], vec[i]) = (vec[i], vec[y])
 
     (vec[y+1], vec[endIndex]) = (vec[endIndex], vec[y+1])
     return y+1
@@ -63,7 +64,7 @@ def PartitionPrice(vec, startIndex, endIndex):
     for i in range(startIndex, endIndex):
         if vec[i].price <= x.price:
             y += 1
-            (vec[i], vec[j]) = (vec[i], vec[y])
+            (vec[y], vec[i]) = (vec[i], vec[y])
 
     (vec[y+1], vec[endIndex]) = (vec[endIndex], vec[y+1])
     return y+1
@@ -92,7 +93,7 @@ def Shellsortrating(vec):
             while i >= 0:
                 # If value on right side is already greater than left side value
                 # We don't do swap else we swap
-                if vec[i + val].rating > vec[i].rating:
+                if vec[i + val].stars > vec[i].stars:
 
                     break
                 else:
@@ -144,6 +145,12 @@ def Quicksortprice(vec, startIndex, endIndex):
 
         Quicksortrating(vec, x+1, endIndex)
 
+def Print10(vec):
+    print("The top 10 results of this search are:")
+    for i in range(10):
+        print(vec[len(vec)-i-1].title)
+        print()
+
 
 class Product:
     def __init__(self, title, stars, price, category):
@@ -155,7 +162,12 @@ class Product:
 
 if __name__ == "__main__":
     while True:
+        ex = input("Welcome to Amazon Product Sorter! Input x to exit and any other character to continue ")
+        print()
         cat = ""
+
+        if ex == 'x':
+            exit()
 
         with open('amazon_categories.csv', newline='', encoding="utf8") as csvfile2:
             # Create a CSV reader
@@ -240,17 +252,55 @@ if __name__ == "__main__":
         choice = input("Enter your choice (1-4): ")
 
         if choice == '1':
-
+            qstart = timeit.timeit()
             Quicksorttitle(products0, 0, len(products0)-1)
+            qend = timeit.timeit()
+            qsort_time = qend-qstart
+
+            print(f"Quicksort time: {qsort_time}")
+            Print10(products0)
+
+            sstart = timeit.timeit()
             Shellsorttitle(products1)
+            send = timeit.timeit()
+            ssort_time = send-sstart
+
+            print(f"Shellsort time: {ssort_time}")
+            Print10(products1)
 
         elif choice == '2':
+            qstart = timeit.timeit()
             Quicksortrating(products0, 0, len(products0)-1)
+            qend = timeit.timeit()
+            qsort_time = qend-qstart
+
+            print(f"Quicksort time: {qsort_time}")
+            Print10(products0)
+
+            sstart = timeit.timeit()
             Shellsortrating(products1)
+            send = timeit.timeit()
+            ssort_time = send-sstart
+
+            print(f"Shellsort time: {ssort_time}")
+            Print10(products1)
 
         elif choice == '3':
+            qstart = timeit.timeit()
             Quicksortprice(products0, 0, len(products0)-1)
+            qend = timeit.timeit()
+            qsort_time = qend-qstart
+
+            print(f"Quicksort time: {qsort_time}")
+            Print10(products0)
+
+            sstart = timeit.timeit()
             Shellsortprice(products1)
+            send = timeit.timeit()
+            ssort_time = send-sstart
+
+            print(f"Shellsort time: {ssort_time}")
+            Print10(products1)
 
         elif choice == '4':
 
